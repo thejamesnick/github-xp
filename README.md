@@ -31,13 +31,13 @@ bun run src/index.ts --help
 
 ```bash
 # Scan your GitHub profile
-gh-xp scan thejamesnick
+gh-xp scan yourusername
 
 # Show skills inventory
-gh-xp skills thejamesnick
+gh-xp skills yourusername
 
 # Export to JSON for AI/resume builders
-gh-xp export thejamesnick --format json > experience.json
+gh-xp export yourusername --format json > experience.json
 ```
 
 ## Commands
@@ -64,39 +64,38 @@ gh-xp export thejamesnick --format json > experience.json
 ```
 ━ EXPERIENCE EVIDENCE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-📂 PROJECT: Burner Wallet
-   ├─ Stack: React JS, JavaScript, Solana Web3 JS, Crypto.JS
-   └─ Experience Points:
-      • Built a Solana web wallet & browser extension using React & JavaScript
-      • Implemented secure transaction signing with Crypto.JS & TweetNacl.js
-      • Integrated Solana blockchain using Solana Web3 JS library
+📂 PROJECT: awesome-project
+   ├─ URL: https://github.com/yourusername/awesome-project
+   ├─ Stack: React, TypeScript, Node.js
+   ├─ Description: A full-stack web application
+   └─ README: # Awesome Project...
 
-📂 PROJECT: SIKGuard Wallet  
-   ├─ Stack: Rust, Solana, Blockchain
-   └─ Experience Points:
-      • Lead development of production Solana wallet (Rust backend)
-      • Implemented cryptographic security standards for crypto transactions
+📂 PROJECT: cool-cli-tool  
+   ├─ URL: https://github.com/yourusername/cool-cli-tool
+   ├─ Stack: Rust, Shell
+   ├─ Description: Command-line utility for developers
+   └─ README: # Cool CLI Tool...
 ```
 
 ### JSON Format
 ```json
 {
-  "username": "thejamesnick",
+  "username": "yourusername",
   "scanned_at": "2026-03-11T10:30:00Z",
   "skills": {
-    "React": { "projects": 3, "lines": 15420 },
-    "TypeScript": { "projects": 2, "lines": 8930 },
-    "Solana": { "projects": 2, "lines": 5200 }
+    "React": { "projects": 3, "totalLines": 15420, "repos": ["project1", "project2"] },
+    "TypeScript": { "projects": 2, "totalLines": 8930, "repos": ["project1"] },
+    "Rust": { "projects": 1, "totalLines": 5200, "repos": ["cli-tool"] }
   },
   "projects": [
     {
-      "name": "Burner Wallet",
-      "url": "https://github.com/thejamesnick/burner-wallet",
-      "languages": ["JavaScript", "React"],
-      "experience_points": [
-        "Built a Solana web wallet & browser extension using React & JavaScript",
-        "Implemented secure transaction signing with Crypto.JS & TweetNacl.js"
-      ]
+      "name": "awesome-project",
+      "url": "https://github.com/yourusername/awesome-project",
+      "description": "A full-stack web application",
+      "languages": ["TypeScript", "JavaScript"],
+      "stars": 42,
+      "forks": 5,
+      "readme": "# Awesome Project\n\nA full-stack application built with React and Node.js..."
     }
   ]
 }
@@ -106,11 +105,17 @@ gh-xp export thejamesnick --format json > experience.json
 ```markdown
 ## Projects
 
-### Burner Wallet
-- **Stack:** React, JavaScript, Solana Web3 JS
-- **Experience:**
-  - Built a Solana web wallet & browser extension using React & JavaScript
-  - Implemented secure transaction signing with Crypto.JS & TweetNacl.js
+### awesome-project
+- **URL:** https://github.com/yourusername/awesome-project
+- **Stack:** React, TypeScript, Node.js
+- **Description:** A full-stack web application
+- **Stars:** 42 | **Forks:** 5
+
+**README:**
+
+# Awesome Project
+
+A full-stack application built with React and Node.js...
 ```
 
 ## Authentication
