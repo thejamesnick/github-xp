@@ -1,0 +1,117 @@
+GITHUB XP - TECH STACK & IMPLEMENTATION PLAN
+=============================================
+
+CHOSEN STACK: Bun + TypeScript
+-------------------------------
+
+WHY THIS STACK:
+- Bun is the hottest runtime in 2026 (faster than Node.js)
+- Built-in TypeScript support (no build config needed)
+- Single executable compilation with `bun build --compile`
+- TypeScript shows type-safe coding skills
+- Modern & cutting-edge (great for resume)
+- Easy to add AI features later (OpenAI SDK compatible)
+
+CORE DEPENDENCIES:
+------------------
+- @octokit/rest (^20.0.0)    - Official GitHub API client
+- commander (^11.0.0)         - CLI framework (battle-tested)
+- zod (^3.22.0)              - Runtime type validation
+- chalk (^5.3.0)             - Terminal colors
+- ora (^7.0.0)               - Spinners for loading states
+- conf (^12.0.0)             - Config management (stores token)
+
+PROJECT STRUCTURE:
+------------------
+github-xp/
+├── src/
+│   ├── index.ts              # CLI entry point
+│   ├── commands/
+│   │   ├── scan.ts           # List repos with skills
+│   │   ├── match.ts          # Match against job description
+│   │   ├── export.ts         # Export to JSON/MD
+│   │   ├── skills.ts         # Show skills inventory
+│   │   └── config.ts         # Token management
+│   ├── lib/
+│   │   ├── github-client.ts  # Octokit wrapper
+│   │   ├── skill-parser.ts   # Language → skill mapping
+│   │   ├── experience-gen.ts # Bullet point generator
+│   │   └── job-matcher.ts    # NLP for job matching
+│   ├── types/
+│   │   └── index.ts          # TypeScript types
+│   └── utils/
+│       ├── config.ts         # Token storage
+│       └── formatters.ts     # JSON/MD output
+├── package.json
+├── tsconfig.json
+├── bun.lockb
+├── README.md
+├── PRD.md
+└── .env.example
+
+IMPLEMENTATION PHASES:
+----------------------
+
+PHASE 1: Basic Repo Fetcher
+- Set up Bun project with TypeScript
+- Install dependencies
+- Create GitHub API client wrapper
+- Implement `gh-xp scan <username>` command
+- Parse language stats per repo
+- Output repo list with tech stack
+
+PHASE 2: Skills Aggregation
+- Create skill parser (file extensions → technologies)
+- Group repos by language/framework
+- Calculate experience depth (lines of code per language)
+- Implement `gh-xp skills <username>` command
+- Show aggregated skills inventory
+
+PHASE 3: Experience Data Formatter
+- Create experience bullet point generator
+- Map technologies to action verbs
+- Implement text/JSON/markdown formatters
+- Implement `gh-xp export <username>` command
+- Add --format flag support
+
+PHASE 4: Job Matcher
+- Parse job description for required skills
+- Score repos against requirements
+- Implement `gh-xp match <username> --job "<desc>"` command
+- Prioritize matching projects in output
+
+PHASE 5: Polish & Distribution
+- Add config management for GitHub token
+- Implement rate limit handling
+- Add loading spinners and progress indicators
+- Compile to single executable with `bun build --compile`
+- Publish to npm
+- Write comprehensive tests
+
+ALTERNATIVE STACK (Rust):
+-------------------------
+If wanting to show systems programming skills:
+- clap (4.5)              - CLI parsing
+- octocrab (0.38)         - GitHub API client
+- serde + serde_json      - JSON serialization
+- tokio                   - Async runtime
+- anyhow                  - Error handling
+- colored (2.1)           - Terminal colors
+
+RESUME VALUE:
+-------------
+This project demonstrates:
+✓ TypeScript/Bun expertise
+✓ CLI tool development
+✓ API integration (GitHub REST API)
+✓ Data parsing & transformation
+✓ Modern tooling (Bun, Zod, Commander)
+✓ Open source project management
+✓ Real-world problem solving
+
+NEXT STEPS:
+-----------
+1. Initialize Bun project
+2. Set up TypeScript config
+3. Install core dependencies
+4. Start with Phase 1 implementation
