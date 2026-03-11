@@ -14,7 +14,9 @@
   "scripts": {
     "dev": "bun run src/index.ts",
     "build": "bun build src/index.ts --outdir dist --target node --format esm && chmod +x dist/index.js",
-    "prepublishOnly": "bun run build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "bun run test && bun run build",
     "start": "bun run src/index.ts"
   },
   "keywords": ["github", "resume", "cli", "experience", "portfolio", "ai", "career"],
@@ -32,7 +34,9 @@
     "node": ">=18.0.0"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/node": "^25.4.0",
+    "vitest": "^4.0.18"
   },
   "peerDependencies": {
     "typescript": "^5"

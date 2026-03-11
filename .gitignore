@@ -18,6 +18,9 @@ output.json
 coverage
 *.lcov
 
+# test coverage
+.vitest
+
 # logs
 logs
 *.log
