@@ -7,11 +7,14 @@ export function formatText(data: ExportData): string {
 
   for (const project of data.projects) {
     output += chalk.cyan(`📂 PROJECT: ${project.name}\n`);
+    output += chalk.gray(`   ├─ URL: ${project.url}\n`);
     output += chalk.gray(`   ├─ Stack: ${project.languages.join(', ')}\n`);
-    output += chalk.gray(`   └─ Experience Points:\n`);
-    
-    for (const point of project.experiencePoints) {
-      output += chalk.white(`      • ${point}\n`);
+    if (project.description) {
+      output += chalk.gray(`   ├─ Description: ${project.description}\n`);
+    }
+    if (project.readme) {
+      const preview = project.readme.slice(0, 200).replace(/\n/g, ' ');
+      output += chalk.gray(`   └─ README: ${preview}...\n`);
     }
     output += '\n';
   }
@@ -42,16 +45,16 @@ export function formatMarkdown(data: ExportData): string {
   output += '\n## Projects\n\n';
   for (const project of data.projects) {
     output += `### ${project.name}\n\n`;
-    output += `- **Stack:** ${project.languages.join(', ')}\n`;
     output += `- **URL:** ${project.url}\n`;
+    output += `- **Stack:** ${project.languages.join(', ')}\n`;
     if (project.description) {
       output += `- **Description:** ${project.description}\n`;
     }
-    output += `- **Experience:**\n`;
-    for (const point of project.experiencePoints) {
-      output += `  - ${point}\n`;
+    output += `- **Stars:** ${project.stars} | **Forks:** ${project.forks}\n`;
+    if (project.readme) {
+      output += `\n**README:**\n\n${project.readme}\n`;
     }
-    output += '\n';
+    output += '\n---\n\n';
   }
   
   return output;

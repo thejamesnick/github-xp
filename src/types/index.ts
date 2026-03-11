@@ -10,6 +10,7 @@ export const RepoSchema = z.object({
   stargazers_count: z.number(),
   forks_count: z.number(),
   private: z.boolean(),
+  fork: z.boolean(),
 });
 
 export const LanguageStatsSchema = z.record(z.string(), z.number());
@@ -23,7 +24,7 @@ export interface ProjectExperience {
   languageStats: Record<string, number>;
   stars: number;
   forks: number;
-  experiencePoints: string[];
+  readme: string | null;
 }
 
 export interface SkillInventory {

@@ -24,6 +24,7 @@ program
   .description('Show aggregated skills inventory')
   .argument('<username>', 'GitHub username')
   .option('-t, --token <token>', 'GitHub Personal Access Token')
+  .option('--include-forks', 'Include forked repositories', false)
   .action(skillsCommand);
 
 program
@@ -33,6 +34,7 @@ program
   .option('-t, --token <token>', 'GitHub Personal Access Token')
   .option('-f, --format <format>', 'Output format: text, json, markdown', 'text')
   .option('-l, --limit <number>', 'Number of projects to include', '10')
+  .option('--include-forks', 'Include forked repositories', false)
   .action((username, options) => {
     exportCommand(username, {
       ...options,

@@ -9,6 +9,11 @@ dist
 # compiled binary
 gh-xp
 
+# example outputs
+example-output.json
+example-output.md
+output.json
+
 # code coverage
 coverage
 *.lcov

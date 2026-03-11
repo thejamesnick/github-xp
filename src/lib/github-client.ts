@@ -44,6 +44,21 @@ export class GitHubClient {
     }
   }
 
+  async getReadme(owner: string, repo: string): Promise<string | null> {
+    try {
+      const { data } = await this.octokit.repos.getReadme({
+        owner,
+        repo,
+      });
+
+      // Decode base64 content
+      const content = Buffer.from(data.content, 'base64').toString('utf-8');
+      return content;
+    } catch (error: any) {
+      return null;
+    }
+  }
+
   async getRateLimit(): Promise<{ remaining: number; limit: number }> {
     const { data } = await this.octokit.rateLimit.get();
     return {

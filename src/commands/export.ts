@@ -8,25 +8,40 @@ import type { OutputFormat, ExportData } from '../types/index.js';
 
 export async function exportCommand(
   username: string,
-  options: { token?: string; format?: OutputFormat; limit?: number }
+  options: { token?: string; format?: OutputFormat; limit?: number; includeForks?: boolean }
 ) {
   const outputFormat = options.format || 'text';
   const limit = options.limit || 10;
+  const includeForks = options.includeForks ?? false;
   const spinner = ora(`Generating experience data for ${username}`).start();
 
   try {
     const client = new GitHubClient(options.token);
-    const repos = await client.getRepositories(username);
+    let repos = await client.getRepositories(username);
+
+    // Filter out forks unless explicitly included
+    if (!includeForks) {
+      repos = repos.filter(repo => !repo.fork);
+      spinner.text = `Found ${repos.length} original repos (excluding forks)`;
+    }
 
     spinner.text = 'Analyzing repositories...';
 
-    // Fetch language stats for each repo
+    // Fetch language stats and READMEs for each repo
     const languageStats = new Map();
+    const readmes = new Map();
+    
     for (const repo of repos) {
       const [owner, repoName] = repo.full_name.split('/');
       if (owner && repoName) {
         const stats = await client.getLanguageStats(owner, repoName);
         languageStats.set(repo.full_name, stats);
+        
+        // Fetch README for better experience points
+        const readme = await client.getReadme(owner, repoName);
+        if (readme) {
+          readmes.set(repo.full_name, readme);
+        }
       }
     }
 
@@ -37,7 +52,11 @@ export async function exportCommand(
     const projects = repos
       .filter(repo => languageStats.get(repo.full_name) && Object.keys(languageStats.get(repo.full_name)!).length > 0)
       .slice(0, limit)
-      .map(repo => generateProjectExperience(repo, languageStats.get(repo.full_name)!));
+      .map(repo => generateProjectExperience(
+        repo, 
+        languageStats.get(repo.full_name)!,
+        readmes.get(repo.full_name)
+      ));
 
     const exportData: ExportData = {
       username,

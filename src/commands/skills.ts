@@ -3,12 +3,19 @@ import chalk from 'chalk';
 import { GitHubClient } from '../lib/github-client.js';
 import { parseSkills } from '../lib/skill-parser.js';
 
-export async function skillsCommand(username: string, options: { token?: string }) {
+export async function skillsCommand(username: string, options: { token?: string; includeForks?: boolean }) {
+  const includeForks = options.includeForks ?? false;
   const spinner = ora(`Analyzing skills for ${username}`).start();
 
   try {
     const client = new GitHubClient(options.token);
-    const repos = await client.getRepositories(username);
+    let repos = await client.getRepositories(username);
+
+    // Filter out forks unless explicitly included
+    if (!includeForks) {
+      repos = repos.filter(repo => !repo.fork);
+      spinner.text = `Analyzing ${repos.length} original repos (excluding forks)`;
+    }
 
     spinner.text = 'Fetching language statistics...';
 
