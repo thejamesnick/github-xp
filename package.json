@@ -4,7 +4,7 @@
   "description": "Extract GitHub experience into AI-ready data formats",
   "type": "module",
   "bin": {
-    "gh-xp": "./dist/index.js"
+    "gh-xp": "dist/index.js"
   },
   "files": [
     "dist",
@@ -19,12 +19,20 @@
     "prepublishOnly": "bun run test && bun run build",
     "start": "bun run src/index.ts"
   },
-  "keywords": ["github", "resume", "cli", "experience", "portfolio", "ai", "career"],
+  "keywords": [
+    "github",
+    "resume",
+    "cli",
+    "experience",
+    "portfolio",
+    "ai",
+    "career"
+  ],
   "author": "Nicholas James <thejamesnick@github.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/thejamesnick/github-xp.git"
+    "url": "git+https://github.com/thejamesnick/github-xp.git"
   },
   "bugs": {
     "url": "https://github.com/thejamesnick/github-xp/issues"
